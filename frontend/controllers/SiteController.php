@@ -18,6 +18,7 @@ use frontend\models\ContactForm;
  */
 class SiteController extends Controller
 {
+
     /**
      * @inheritdoc
      */
@@ -26,15 +27,15 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+                // 'only' => ['logout', 'signup', 'index', 'about', 'contact'],
                 'rules' => [
                     [
-                        'actions' => ['signup'],
+                        'actions' => ['login'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout', 'index', 'about', 'contact'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

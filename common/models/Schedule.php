@@ -29,6 +29,7 @@ class Schedule extends \yii\db\ActiveRecord
         return [
             [['is_default'], 'integer'],
             [['name'], 'string', 'max' => 64],
+            [['name'], 'required'],
         ];
     }
 

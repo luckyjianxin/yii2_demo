@@ -37,5 +37,10 @@ class AppAsset extends AssetBundle
         'common\assets\FontAwesomeAsset',
         'common\assets\FancyboxAsset',        
         'backend\assets\SwitcherAsset',
+        'common\assets\JqueryuiAsset',
+    ];
+
+    public $jsOptions = [  
+        'position' => \yii\web\View::POS_HEAD,   // 这是设置所有js放置的位置  
     ];
 }

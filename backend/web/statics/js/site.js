@@ -30,22 +30,13 @@ $(function () {
             return false;
         }
     });
-    // var elems = Array.prototype.slice.call(document.querySelectorAll('[data-toggle=switcher]'));
-    // elems.forEach(function(html) {
-    //     var disabled = !!$(html).data('switcher-disabled');
-    //     var size = $(html).data('switcher-size') || 'small';
-    //     var switchery = new Switchery(html,{ size: size, disabled:disabled, disabledOpacity:0.5 });
-    //     $(html).data('switchery', switchery);
-    // });
 
-    $('.switch_ck').each(function() {
-        // $(this).wrap('<div class="switch switch-small"  data-on-label="Y" data-off-label = "N" />').parent().bootstrapSwitch();
-    }) 
-       
+
     $('.switch_ck').each(function(){
         $(this).bootstrapSwitch();
     });
-    
+
+
 });
 String.prototype.addQueryParams = function(params) {
     var split = '?';

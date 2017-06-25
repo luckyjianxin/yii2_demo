@@ -14,67 +14,33 @@ class SwitcherColumn extends  DataColumn
     {
 
         SwitcherAsset::register($this->grid->view);
-        $js1 = <<<'EOT'
-		    $('.js-switch').on('change', function(){
-		        var switchery =  $(this).data("switchery");
-                var self = this;
-		        switchery.disable();
-		        var url =  $(this).data("url");
-		        var reload =  $(this).data("reload");
-		        var checked =  $(this).is(':checked') ? '1' : '0';
-		        var data = $(this).data("params");
-		        data.value = checked;
-		        $.post( url, data, function(response){
-		            if(response.status == false){
-		                $.modal.error(response.msg);
-                        switchery.enable();
-		            } else {
-                        $.modal.success(response.msg);
-                    }
-		            // if(reload){
-		                location.reload();
-		            // }
-		        });
-		    });
-EOT;
+        
 
-$js = <<<'EOT'
-            // $('.switch_ck').each(function() {
-            //         $(this).wrap('<div class="switch switch-small"  data-on-label="Y" data-off-label = "N" />').parent().bootstrapSwitch();
-            // });      
-
-            $(".bootstrap-switch").on("click", function() {
-                alert();
-            });
-            return;
-            $('.switch_ck').on('switch-change', function (e, data) {
-
-                var $el = $(data.el) , value = data.value;
-                var url =  $el.data("url");
-                var reload =  $el.data("reload");
-                var checked = value;
-                var data = $el.data("params");
-                data.value = checked ? 1 : 0;
-                
+$js = <<<'JS'
+            $(".bootstrap-switch").on('switchChange.bootstrapSwitch', function (event,state) {  
+                console.log(state); 
+                var url =  $(this).find('.switch_ck').data("url");
+                var data = $(this).find('.switch_ck').data("params");
+                data.value = state ? 1 : 0; 
+                console.log(data);
                 $.post( url, data, function(response){
-                    
                     if(response.status == false){
                         $.modal.error(response.msg);
                     } else {
                         $.modal.success(response.msg);
                     }
-
                     
-                    $.pjax.reload({container:"#schedules"});
-                    $('.switch_ck').each(function() {
-                        $(this).bootstrapSwitch();
-                    });                    
+                    location.reload();
+                    // $.pjax.reload({container:"#schedules"});
+                    // $('.switch_ck').each(function() {
+                    //     $(this).bootstrapSwitch();
+                    // });                    
                 });
-            });
-EOT;
+            });              
+JS;
 
 
-        $this->grid->view->registerJs($js,\yii\web\View::POS_READY); //因为可能会被pjax加载所以放在这里
+        $this->grid->view->registerJs($js); //因为可能会被pjax加载所以放在这里
     }
     /**
      * @inheritdoc

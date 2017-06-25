@@ -1,14 +1,19 @@
 {
-    "name": "izyue/yii2-app-advanced",
+    "name": "yii2demo",
     "description": "Yii 2 Advanced Project Template",
     "keywords": ["yii2", "framework", "advanced", "project template"],
-    "homepage": "http://www.izyue.com",
+    "homepage": "http://www.yii2demo.com",
     "type": "project",
     "license": "BSD-3-Clause",
     "support": {
-        "source": "https://github.com/liulipeng/yii2-app-advanced"
+        "source": "https://github.com/luckyjianxin/yii2-demo"
     },
     "minimum-stability": "stable",
+    "autoload": {
+        "files": [
+            "common/env.php"
+        ]
+    },
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": ">=2.0.6",
@@ -20,7 +25,9 @@
         "kartik-v/yii2-grid": "@dev",
         "kartik-v/yii2-editable": "@dev",
         "kartik-v/yii2-widgets": "*",
-        "bower-asset/font-awesome": "^4.0"
+        "bower-asset/font-awesome": "^4.0",
+        "kartik-v/yii2-date-range": "*",
+        "vlucas/phpdotenv": "^2.4"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
@@ -42,8 +49,8 @@
     },
     "authors": [
         {
-            "name": "刘李鹏",
-            "email": "liu.lipeng@icloud.com"
+            "name": "小新",
+            "email": "luckyjianxin@aliyun.com"
         }
     ]
 }

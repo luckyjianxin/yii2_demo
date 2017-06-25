@@ -33,7 +33,7 @@ class ScheduleScene extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['schedule_id', 'scene_id', 'type', 'show_traveltime'], 'integer'],
+            [['schedule_id', 'type', 'show_traveltime'], 'integer'],
             [['order'], 'number'],
             [['name'], 'string', 'max' => 64],
             [['travel_from', 'travel_to'], 'string', 'max' => 32],
@@ -48,7 +48,6 @@ class ScheduleScene extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'schedule_id' => '行程ID',
-            'scene_id' => 'Scene ID',
             'name' => 'scene名称',
             'type' => '0=scene,1=travel',
             'show_traveltime' => 'Show Traveltime',

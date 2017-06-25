@@ -6,6 +6,7 @@ use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use yii\helpers\ArrayHelper;
 
 /**
  * User model
@@ -185,5 +186,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    public static function getUserStatus($status = '-1')
+    {
+        $status_array = ['' => '请选择', self::STATUS_ACTIVE=>'正常', self::STATUS_DELETED=>'禁止'];
+        return ($status == '-1') ? $status_array : ArrayHelper::getValue($status_array, $status, '未知');
     }
 }

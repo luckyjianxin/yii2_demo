@@ -4,7 +4,8 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Schedule;
-use common\models\ScheduleSearch;
+use common\models\ScheduleScene;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -60,11 +61,11 @@ class ScheduleController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ScheduleSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => Schedule::find(),
+        ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -130,9 +131,8 @@ class ScheduleController extends Controller
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
         $this->findModel($id)->delete();
-        // Yii::$app->session->setFlash('success', '删除成功');
-        return ['msg'=>'删除成功'];          
-        //return $this->redirect(['index']);
+        Yii::$app->session->setFlash('success', '删除成功');
+        return $this->redirect(['index']);
     }
 
     /**
@@ -174,5 +174,143 @@ class ScheduleController extends Controller
         }            
 
         //return $this->redirect(['index']);
-    }    
+    }
+
+    public function actionAddscene($id)
+    {
+        $model = $this->findModel($id);
+
+        // $response=Yii::$app->response;  
+        // $response->format=Response::FORMAT_JSON;  
+
+        $scenes = ScheduleScene::find()->where(['schedule_id' => $id])
+                                       ->orderby('order', 'asc')
+                                       ->asArray()->all();
+
+        // $model->is_default = 0;
+
+        if ($model->load(Yii::$app->request->post()) ) {
+
+            if ($model->is_default == 1) {
+                $model->updateAll(array('is_default'=>0),'is_default=:default',array(':default'=>1));
+                // Schedule::updateAllDefault();
+            }
+
+            $result = $model->save();
+            if ($result) {
+                Yii::$app->session->setFlash('success', '创建成功');
+            }
+            return $this->redirect(['index']); 
+            //return $this->redirect(['index']);
+        } else {
+            return $this->render('addscene', [
+                'model' => $model,
+                'scenes' => $scenes
+            ]);
+        }
+    }
+
+    public function actionUpdatetravel()
+    {
+        if (Yii::$app->request->isAjax) {
+          $data = Yii::$app->request->post();
+          $model = ScheduleScene::findOne($data['id']);
+          $attribute = $data['attribute'];
+          $value = $data['value'];
+          $model->$attribute = $value;
+          $model->save();
+
+          \Yii::$app->response->format = Response::FORMAT_JSON;
+          return ['msg'=> '设置成功']; 
+        }  else {
+
+        }
+
+    }
+
+    public function actionChangesort()
+    {
+        if (Yii::$app->request->isAjax) {
+          $ids = Yii::$app->request->post('ids');
+          $id_array = explode(',', $ids);
+          $table = ScheduleScene::tableName();
+
+          $sql = "UPDATE `$table` SET `order` = CASE `id` ";
+            foreach ($id_array as $key => $value) {
+                $sql .= sprintf("WHEN %d THEN %d ", $value, $key);
+            }
+            $sql .= "END WHERE `id` IN ($ids)";
+
+          Yii::$app->db->createCommand($sql)->execute();
+
+          // $model = ScheduleScene::findOne($data['id']);
+          // $attribute = $data['attribute'];
+          // $value = $data['value'];
+          // $model->$attribute = $value;
+          // $model->save();
+
+          Yii::$app->response->format = Response::FORMAT_JSON;
+          return (['msg' => '排序成功']);  
+        }  else {
+
+        }
+
+    }
+    public function actionScenedelete()
+    {
+        if (Yii::$app->request->isAjax) {
+          $id = Yii::$app->request->post('id');
+          $show_travel = Yii::$app->request->post('show_traveltime');
+          Yii::$app->response->format = Response::FORMAT_JSON;
+          $model = ScheduleScene::findOne($id);
+          if ($show_travel == 0) {
+            $model->show_traveltime = 0;
+            $model->save();
+          } else {
+            $model->delete();
+          }
+
+          return (['msg' => '删除成功']);  
+        }  else {
+
+        }
+
+    }
+
+    public function actionSceneadd()
+    {
+        if (Yii::$app->request->isAjax) {
+           
+          $data = Yii::$app->request->post();
+          Yii::$app->response->format = Response::FORMAT_JSON;
+          $model = new ScheduleScene();
+
+
+          $last = $model->find()
+                              ->select(['order'])
+                              ->where(['schedule_id' => $data['schedule_id']])
+                              ->orderBy('order DESC')
+                              ->limit(1)
+                              ->one();
+          $data['order'] = (empty($last)) ? 0 : $last['order'] +１;
+
+
+          foreach ($data as $key => $value) {
+              $model->$key = $value;
+          }
+
+           
+            if ($model->save()) {
+               return (['msg' => (($data['type'] == 0) ? 'Scene' : 'Travel time') .  ' 添加成功']); 
+
+            } else {
+                return (['status' => 'false', 'msg' => (($data['type'] == 0) ? 'Scene' : 'Travel time') .  ' 添加失败']); 
+            }
+           
+           
+        }  else {
+
+        }
+
+    }
 }

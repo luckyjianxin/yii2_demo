@@ -32,13 +32,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Schedule', ['create'], ['class' => 'btn btn-success']) ?>
     </p> -->
-<?php Pjax::begin(['id' => 'schedules', 'timeout' => false, 'enablePushState' => false,]); ?>    
+<?php Pjax::begin(['id' => 'schedules']); ?>    
 
- <form> 
 <?php 
 
 $colums =   [
-                ['class' => 'yii\grid\SerialColumn',
+                ['class' => 'kartik\grid\SerialColumn',
                  'options' => [
                     'width'=> '50px'
                  ]
@@ -48,6 +47,7 @@ $colums =   [
                 ['attribute'  => 'name',
                   'class' => '\kartik\grid\EditableColumn',
                   'editableOptions'=>  [ 'formOptions' => ['action' => ['/schedule/editschedule']],
+                                         'size'=>'md',
                                          'inputType'=>\kartik\editable\Editable::INPUT_TEXTAREA,
                                             'options' => [
                                                 'rows' => 4, 
@@ -76,24 +76,22 @@ $colums =   [
             
                 //action button
                 [ 'class' => '\kartik\grid\ActionColumn',
-                  'template' => '{delete}',
+                  'template' => '{add} {delete}',
                   'header' => '',
-                  'deleteOptions' => ['label' => '<i class="glyphicon glyphicon-remove"></i>'],
+                  'deleteOptions' => ['label' => '<span class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i></span>'],
                   'buttons' => [
-                    // 'default' => function ($url, $model) {
+                    'add' => function ($url, $model) {
                         
-                    //     $options = [
-                    //         'title' => Yii::t('app', '更新默认'),
-                    //         'data-pjax' => '1',
-                    //         'data-toggle-default' => $model->id,
-                    //         'data-pjax-container' => 'w0-pjax'
-                    //     ];
-                    //     return Html::a('<span class="glyphicon glyphicon-cog"></span>', $url, $options); 
-                    // },
+                        $options = [
+                            'title' => Yii::t('app', '添加场景'),
+                            'data-pjax' => 'false',
+                        ];
+                        return Html::a('<span class="btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></span>', URL::to(['schedule/addscene', 'id'=>$model->id]), $options); 
+                    },
                   ],
-                  'urlCreator'  => function ($action, $model, $key, $index) {
-                        return Url::to(["schedule/" . $action, "id" => $model->id]);
-                  }
+                  // 'urlCreator'  => function ($action, $model, $key, $index) {
+                  //       return Url::to(["schedule/" . $action, "id" => $model->id]);
+                  // }
                 ]
             ];
 
@@ -101,15 +99,10 @@ $colums =   [
 
  <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterUrl' => Url::to(["schedule/index"]),
+        // 'filterUrl' => Url::to(["schedule/index"]),
         'columns' => $colums,
         'pjax'=> true,
         'summary'=>false,
-        'pjaxSettings' => [
-            'options' => [
-                'enablePushState' => false,
-            ]
-        ],
         //'export' => false,//导出数据按钮
         //'toggleData' => false,//显示全部数据按钮
         // 'toolbar' => [
@@ -135,7 +128,6 @@ $colums =   [
         // ],
     ]); ?>
 
-</form>
 <?php Pjax::end(); ?>
 
 </div>
