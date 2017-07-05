@@ -1,4 +1,28 @@
-function countUp(count)
+function countUp(count, divclass)
+{
+    var div_by = 10,
+        speed = Math.round(count / div_by),
+        $display = $('.' + divclass),
+        run_count = 1,
+        int_speed = 24;
+
+    var int = setInterval(function() {
+        if(run_count < div_by){
+            $display.text(speed * run_count);
+            run_count++;
+            //console.log($display.text());
+        } else if(parseInt($display.text()) < count) {
+            //console.log($display.text());
+            var curr_count = parseInt($display.text()) + 1;
+            $display.text(curr_count);
+        } else {
+            $display.text(count);
+            clearInterval(int);
+        }
+    }, int_speed);
+}
+
+function countUp1(count)
 {
     var div_by = 100,
         speed = Math.round(count / div_by),
@@ -19,7 +43,7 @@ function countUp(count)
     }, int_speed);
 }
 
-countUp(495);
+// countUp1(495);
 
 function countUp2(count)
 {
@@ -42,7 +66,7 @@ function countUp2(count)
     }, int_speed);
 }
 
-countUp2(947);
+// countUp2(947);
 
 function countUp3(count)
 {
@@ -65,7 +89,7 @@ function countUp3(count)
     }, int_speed);
 }
 
-countUp3(328);
+// countUp3(328);
 
 function countUp4(count)
 {
@@ -88,4 +112,4 @@ function countUp4(count)
     }, int_speed);
 }
 
-countUp4(10328);
+// countUp4(10328);

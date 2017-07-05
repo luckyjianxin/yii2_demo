@@ -18,6 +18,7 @@ class AppAsset extends AssetBundle
         'statics/css/style.css',
         'statics/css/bootstrap-switch.css',
         'statics/css/style-responsive.css',
+        'statics/css/toastr.min.css',
     ];
     public $js = [
         'statics/js/jquery.dcjqaccordion.2.7.js',
@@ -28,6 +29,8 @@ class AppAsset extends AssetBundle
         'statics/js/common-scripts.js',
         'statics/js/bootstrap-switch.js',
         'statics/js/site.js',
+        'statics/js/toastr.min.js',
+        'statics/js/doT.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
@@ -38,6 +41,7 @@ class AppAsset extends AssetBundle
         'common\assets\FancyboxAsset',        
         'backend\assets\SwitcherAsset',
         'common\assets\JqueryuiAsset',
+        // 'common\assets\BootboxAsset',
     ];
 
     public $jsOptions = [  

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9883375b4f33cadd825193881f055884",
+    "content-hash": "d50a579bcb160b72ed47022b6fa4fe15",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -262,6 +262,22 @@
                     "package.json"
                 ]
             }
+        },
+        {
+            "name": "bower-asset/vue",
+            "version": "v2.1.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vuejs/vue.git",
+                "reference": "994aee4f869d68a00c3b9d87daa9c8d84623ac42"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vuejs/vue/zipball/994aee4f869d68a00c3b9d87daa9c8d84623ac42",
+                "reference": "994aee4f869d68a00c3b9d87daa9c8d84623ac42",
+                "shasum": ""
+            },
+            "type": "bower-asset-library"
         },
         {
             "name": "bower-asset/yii2-pjax",
@@ -1988,6 +2004,50 @@
             "time": "2014-11-09T19:54:17+00:00"
         },
         {
+            "name": "prawee/yii2-vuejs",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/prawee/yii2-vuejs.git",
+                "reference": "89ed210cc136680e29ca00e4f3fcca1cf102a77b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/prawee/yii2-vuejs/89ed210cc136680e29ca00e4f3fcca1cf102a77b.zip",
+                "reference": "89ed210cc136680e29ca00e4f3fcca1cf102a77b",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/vue": "~2.1.10",
+                "yiisoft/yii2": ">=2.0.10"
+            },
+            "type": "yii2-library",
+            "autoload": {
+                "psr-4": {
+                    "prawee\\vuejs\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Prawee Wongsa",
+                    "email": "konkeanweb@gmail.com"
+                }
+            ],
+            "description": "Vue.js library for Yii2",
+            "homepage": "https://github.com/prawee/yii2-vuejs.git",
+            "keywords": [
+                "library",
+                "vue",
+                "vuejs2",
+                "yii2"
+            ],
+            "time": "2017-06-21 11:29:05"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v5.4.8",
             "source": {
@@ -2746,7 +2806,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "kartik-v/yii2-grid": 20,
-        "kartik-v/yii2-editable": 20
+        "kartik-v/yii2-editable": 20,
+        "prawee/yii2-vuejs": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

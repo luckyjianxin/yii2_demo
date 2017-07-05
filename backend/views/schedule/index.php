@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Schedule', ['create'], ['class' => 'btn btn-success']) ?>
     </p> -->
-<?php Pjax::begin(['id' => 'schedules']); ?>    
+<?php Pjax::begin(['id' => 'schedule-lists']); ?>    
 
 <?php 
 
@@ -102,7 +102,20 @@ $colums =   [
         // 'filterUrl' => Url::to(["schedule/index"]),
         'columns' => $colums,
         'pjax'=> true,
-        'summary'=>false,
+        'pjaxSettings' => [
+            'options' => [
+                'id' => 'schedule-lists'
+            ]
+        ],
+        // 'summary'=>false,
+        'toolbar' =>  [
+            ['content'=>''
+            ]
+        ],
+        'panel' => [
+            'heading'=>'',
+            'type' => GridView::TYPE_INFO,
+        ],
         //'export' => false,//导出数据按钮
         //'toggleData' => false,//显示全部数据按钮
         // 'toolbar' => [
@@ -134,4 +147,27 @@ $colums =   [
 </div>
 </div>
 </section>
+
+
+<script type="text/javascript">
+  // function message_pjax(){
+  //   var container = $("#schedule-lists");
+  //   $.pjax.reload({container:'#schedule-lists'});
+
+    
+  // }
+
+  
+
+  // $(document).ready(function() {
+  //   $.pjax.reload({container:'#schedule-lists'});
+  //   //$.pjax.reload({container:'#schedule-lists'});
+  //   var container = $("#schedule-lists");
+  //   container.on('pjax:success',function(args){
+  //     toastr.success('删除成功');
+  //     // toastr.cancel();
+  //   });
+  // })
+
+</script>>
 

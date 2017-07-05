@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
+use common\models\User;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
@@ -19,9 +20,10 @@ use yii\helpers\Url;
             <?= $form->field($uform, 'email')->textInput(['value' => $model->email]) ?>
 
 			<?= $form->field($uform, 'password')->passwordInput() ?>
+			
+			<?= $form->field($uform, 'type')->dropDownList(User::getUserType()); ?>
 
-
-			<?= $form->field($uform, 'status')->dropDownList(['10'=>'正常','0'=>'禁止'], ['prompt'=>'请选择']) ?>
+			<?= $form->field($uform, 'status')->dropDownList([User::STATUS_ACTIVE=>'正常', User::STATUS_DELETED=>'禁止'], ['prompt'=>'请选择']) ?>
 
 		    <div class="form-group">
 		        

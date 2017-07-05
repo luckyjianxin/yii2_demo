@@ -16,9 +16,9 @@ $this->params['breadcrumbs'][] = 'Update';
 	<div class="nav-tabs-custom">
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" ><?= Html::a('门店管理', ['index']) ?></li>
+            <li role="presentation" ><?= Html::a('添加门店', ['create']) ?></li>
             <li role="presentation" class="active"><?= Html::a('更新门店') ?></li>
         </ul>
-
 
 		<div class="tab-content">
 		    <?= $this->render('_form', [

@@ -9,7 +9,7 @@
 namespace backend\components;
 
 
-use common\modules\user\models\User;
+use common\models\User;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 

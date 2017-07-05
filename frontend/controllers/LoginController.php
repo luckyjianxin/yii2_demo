@@ -7,12 +7,13 @@ use yii\filters\AccessControl;
 use frontend\models\LoginForm;
 use yii\helpers\Url;
 use yii\filters\VerbFilter;
+use frontend\controllers\BaseController;
 
 /**
  * 后台登录控制器
  * @author longfei <phphome@qq.com>
  */
-class LoginController extends Controller
+class LoginController extends BaseController
 {
 
     public $layout = false;
@@ -67,10 +68,17 @@ class LoginController extends Controller
         $model = new LoginForm();
 
         if (Yii::$app->request->isPost) {
-            if ($model->load(Yii::$app->request->post()) && $model->login()) {
-                return 1;
-            } else {
-                return 0;
+            if ($model->load(Yii::$app->request->post())) {
+               $mode = $model->login();
+               //echo $mode;
+               if ($mode === 1) {
+                 Yii::$app->session->setFlash('error', 'Incorrect Customer NO.');
+               } else if ($mode === 2) {
+                 Yii::$app->session->setFlash('error', 'Incorrect Password.');
+               } else if ($mode === 11) {
+                 Yii::$app->session->setFlash('error', 'This customer\'s order is not exists.');
+               }
+               return 1;
             }
         }else {
             return $this->render('login', [
@@ -87,6 +95,11 @@ class LoginController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
+
+
+        unset(Yii::$app->session['_customer']);
+        $cookie = Yii::$app->request->cookies->get('_customer');
+        Yii::$app->response->getCookies()->remove($cookie);
 
         return $this->redirect(Url::toRoute('/login/login'));
         // return $this->goHome();

@@ -131,8 +131,15 @@ class ScheduleController extends Controller
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
         $this->findModel($id)->delete();
-        Yii::$app->session->setFlash('success', '删除成功');
-        return $this->redirect(['index']);
+        // Yii::$app->session->setFlash('success', '删除成功');
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => Schedule::find(),
+        ]);
+
+        return $this->renderAjax('index', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**

@@ -13,6 +13,7 @@ class UserUpdateForm extends Model
     public $email;
     public $password;
     public $status;
+    public $type;
 
     public function __construct($id) {
         $this->id = $id;
@@ -29,12 +30,12 @@ class UserUpdateForm extends Model
             // ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'filter' => ['<>','id',$this->id], 'message' => 'This email address has already been taken.'],
+            // ['email', 'unique', 'targetClass' => '\common\models\User', 'filter' => ['<>','id',$this->id], 'message' => 'This email address has already been taken.'],
             // ['password', 'required'],
             ['password', 'string', 'skipOnEmpty' => true],
             ['password', 'string', 'min' => 6],
 
-            ['status', 'required'],
+            [['status','type'], 'required'],
 
             // ['confirm_password', 'string', 'skipOnEmpty' => true],
             // ['confirm_password', 'compare','compareAttribute'=>'password','message'=>'confirm password is not same as password', 'operator' => '==='],
@@ -62,8 +63,10 @@ class UserUpdateForm extends Model
            $model->generateAuthKey(); 
         }
         $model->status = $this->status;
-
-        // print_r($this);
+        $model->type = $this->type;
+        
+        
+        // print_r($model);
 
         
         if ($model->save()) {

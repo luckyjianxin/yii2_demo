@@ -1,5 +1,5 @@
 <?php
-
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 
 $this->registerCssFile('@web/statics/assets/font-awesome/css/font-awesome.css', ['depends'=>'backend\assets\AppAsset']);
@@ -26,6 +26,7 @@ $this->registerJs("
 			  autoPlay:true
 
           });
+          
       });
 
       //custom select box
@@ -35,7 +36,7 @@ $this->registerJs("
       });
 ");
 
-$this->title = 'My Yii Application';
+$this->title = 'Dashboard';
 ?>
 <section class="wrapper">
     <!--state overview start-->
@@ -46,10 +47,11 @@ $this->title = 'My Yii Application';
                     <i class="fa fa-user"></i>
                 </div>
                 <div class="value">
-                    <h1 class="count">
+                    <a href="<?= Url::toRoute(['user/index']); ?>"><h1 class="count">
                         0
                     </h1>
-                    <p>New Users</p>
+                    </a>
+                    <p>Frontend Users</p>
                 </div>
             </section>
         </div>
@@ -59,23 +61,23 @@ $this->title = 'My Yii Application';
                     <i class="fa fa-tags"></i>
                 </div>
                 <div class="value">
-                    <h1 class=" count2">
+                    <a href="<?= Url::toRoute(['schedule/index']); ?>"><h1 class=" count2">
                         0
-                    </h1>
-                    <p>Sales</p>
+                    </h1></a>
+                    <p>Schedules</p>
                 </div>
             </section>
         </div>
         <div class="col-lg-3 col-sm-6">
             <section class="panel">
                 <div class="symbol yellow">
-                    <i class="fa fa-shopping-cart"></i>
+                    <i class="fa fa-envelope"></i>
                 </div>
                 <div class="value">
-                    <h1 class=" count3">
+                    <a href="<?= Url::toRoute(['mailtemplate/index']); ?>"><h1 class=" count3">
                         0
-                    </h1>
-                    <p>New Order</p>
+                    </h1></a>
+                    <p>Email Templates</p>
                 </div>
             </section>
         </div>
@@ -85,19 +87,18 @@ $this->title = 'My Yii Application';
                     <i class="fa fa-bar-chart-o"></i>
                 </div>
                 <div class="value">
-                    <h1 class=" count4">
+                    <a href="<?= Url::toRoute(['mailhistory/index']); ?>"><h1 class=" count4">
                         0
-                    </h1>
-                    <p>Total Profit</p>
+                    </h1></a>
+                    <p>Sent Mails</p>
                 </div>
             </section>
         </div>
     </div>
     <!--state overview end-->
 
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-lg-8">
-            <!--custom chart start-->
             <div class="border-head">
                 <h3>Earning Graph</h3>
             </div>
@@ -159,10 +160,8 @@ $this->title = 'My Yii Application';
                     <div class="value tooltips" data-original-title="90%" data-toggle="tooltip" data-placement="top">90%</div>
                 </div>
             </div>
-            <!--custom chart end-->
         </div>
         <div class="col-lg-4">
-            <!--new earning start-->
             <div class="panel terques-chart">
                 <div class="panel-body chart-texture">
                     <div class="chart">
@@ -184,9 +183,7 @@ $this->title = 'My Yii Application';
                               </span>
                 </div>
             </div>
-            <!--new earning end-->
 
-            <!--total earning start-->
             <div class="panel green-chart">
                 <div class="panel-body">
                     <div class="chart">
@@ -202,13 +199,13 @@ $this->title = 'My Yii Application';
                     <span class="value">$, 76,54,678</span>
                 </div>
             </div>
-            <!--total earning end-->
         </div>
-    </div>
+    </div> -->
+
     <div class="row">
         <div class="col-lg-4">
             <!--user info table start-->
-            <section class="panel">
+            <!-- <section class="panel">
                 <div class="panel-body">
                     <a href="#" class="task-thumb">
                         <img src="<?=Yii::getAlias('@web')?>/statics/img/avatar1.jpg" alt="">
@@ -250,12 +247,12 @@ $this->title = 'My Yii Application';
                     </tr>
                     </tbody>
                 </table>
-            </section>
+            </section> -->
             <!--user info table end-->
         </div>
         <div class="col-lg-8">
             <!--work progress start-->
-            <section class="panel">
+            <!-- <section class="panel">
                 <div class="panel-body progress-panel">
                     <div class="task-progress">
                         <h1>Work Progress</h1>
@@ -333,7 +330,7 @@ $this->title = 'My Yii Application';
                     </tr>
                     </tbody>
                 </table>
-            </section>
+            </section> -->
             <!--work progress end-->
         </div>
     </div>
@@ -344,24 +341,11 @@ $this->title = 'My Yii Application';
                 <div class="panel-body">
                     <div class="text-center mbot30">
                         <h3 class="timeline-title">Timeline</h3>
-                        <p class="t-info">This is a project timeline</p>
+                        <p class="t-info">The Latest 10 Email Sents</p>
                     </div>
 
-                    <div class="timeline">
-                        <article class="timeline-item">
-                            <div class="timeline-desk">
-                                <div class="panel">
-                                    <div class="panel-body">
-                                        <span class="arrow"></span>
-                                        <span class="timeline-icon red"></span>
-                                        <span class="timeline-date">08:25 am</span>
-                                        <h1 class="red">12 July | Sunday</h1>
-                                        <p>Lorem ipsum dolor sit amet consiquest dio</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="timeline-item alt">
+                    <div class="timeline" id="timeline-content">
+                        <!-- <article class="timeline-item alt">
                             <div class="timeline-desk">
                                 <div class="panel">
                                     <div class="panel-body">
@@ -432,7 +416,7 @@ $this->title = 'My Yii Application';
                                     </div>
                                 </div>
                             </div>
-                        </article>
+                        </article> -->
                     </div>
 
                     <div class="clearfix">&nbsp;</div>
@@ -714,3 +698,65 @@ $this->title = 'My Yii Application';
     </div>
 
 </section>
+
+<script id="dashboardtmpl" type="text/x-dot-template">
+     {{ for (var i = 0, l = it.length; i < l; i++) { }}
+       {{ if (i % 2 === 0) { }}
+            <article class="timeline-item alt">
+                <div class="timeline-desk">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <span class="arrow-alt"></span>
+                            <span class="timeline-icon blue"></span>
+                            <span class="timeline-date">{{= it[i].create_at }}</span>
+                            <h1 class="blue">{{= it[i].subject }}</h1>
+                            <p>{{= it[i].content }}</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+        {{ } else { }}
+            <article class="timeline-item">
+                <div class="timeline-desk">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <span class="arrow"></span>
+                            <span class="timeline-icon light-green"></span>
+                            <span class="timeline-date">{{= it[i].create_at }}</span>
+                            <h1 class="light-green">{{= it[i].subject }}</h1>
+                            <p>{{= it[i].content }}</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+      {{ } }}
+
+
+     {{ } }}
+</script>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+          $.post('<?= Url::toRoute(['site/fetch'])?>', {_csrf: '<?= Yii::$app->request->csrfToken ?>'})
+            .then(function(data){
+                countUp(data.users.length, 'count');
+                countUp(data.schedules.length, 'count2');
+                countUp(data.templates.length, 'count3');
+                countUp(data.sents.length, 'count4');
+
+                var obj = data.limitsents;
+                var tmpl = $("#dashboardtmpl").text();//document.getElementById('historytmpl').innerHTML;
+                var doTtmpl = doT.template(tmpl);
+                console.log(tmpl);
+                $("#timeline-content").html(doTtmpl(obj));
+            });
+
+
+
+          
+      });
+</script>

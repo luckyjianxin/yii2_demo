@@ -144,3 +144,7 @@
   height: 38px;
   color: #000;
 }
+
+.button_padding_0 {
+  padding:  0px;
+}

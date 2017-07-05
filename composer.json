@@ -27,7 +27,8 @@
         "kartik-v/yii2-widgets": "*",
         "bower-asset/font-awesome": "^4.0",
         "kartik-v/yii2-date-range": "*",
-        "vlucas/phpdotenv": "^2.4"
+        "vlucas/phpdotenv": "^2.4",
+        "prawee/yii2-vuejs": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

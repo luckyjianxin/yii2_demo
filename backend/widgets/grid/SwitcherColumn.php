@@ -17,6 +17,9 @@ class SwitcherColumn extends  DataColumn
         
 
 $js = <<<'JS'
+            $('.switch_ck').each(function(){
+                $(this).bootstrapSwitch();
+            });
             $(".bootstrap-switch").on('switchChange.bootstrapSwitch', function (event,state) {  
                 console.log(state); 
                 var url =  $(this).find('.switch_ck').data("url");

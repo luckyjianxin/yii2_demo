@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="nav-tabs-custom">
 	        <ul class="nav nav-tabs" role="tablist">
 	            <li role="presentation" ><?= Html::a('行程管理', ['index']) ?></li>
+	            <li role="presentation"><?= Html::a('添加行程', ['create']) ?></li>
 	            <li role="presentation" class="active"><?= Html::a('添加场景', ['addscene', 'id' => $model->id]) ?></li>
 	        </ul>
 	        <div class="tab-content">	 

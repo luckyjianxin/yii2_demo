@@ -4,11 +4,13 @@ use yii\helpers\Html;
 // use yii\grid\GridView;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
+use common\models\Officecontact;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '门店管理';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="officecontact-index">
 
@@ -23,14 +25,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="tab-content">
 
-<?php Pjax::begin(['id' => 'offices']); ?>    
+<?php Pjax::begin(['id' => 'office-lists']); ?>    
   <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'kartik\grid\SerialColumn'],
 
             'id',
-            'branch',
+            ['attribute' => 'branch',
+              'value' => function($model) {
+                 return Officecontact::getLongNameByShort($model->branch) . ' (' . $model->branch . ')';
+              }
+            ],
             'address',
             'lat',
             'lon',
@@ -41,6 +47,25 @@ $this->params['breadcrumbs'][] = $this->title;
              'updateOptions' => ['label' => '<span class="btn btn-success btn-xs"><i class="glyphicon glyphicon-pencil"></i></span>'],
              'deleteOptions' => ['label' => '<span class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i></span>'],
             ],
+        ],
+        'pjax' => true,
+        'pjaxSettings' => [
+            'options' => [
+                'id' => 'office-lists'
+            ]
+        ],
+        'bordered' => true,
+        'striped' => true,
+        'condensed' => true,
+        'responsive' => true,
+        'hover' => true,
+        'toolbar' =>  [
+            ['content'=>''
+            ]
+        ],
+        'panel' => [
+            'heading'=>'',
+            'type' => GridView::TYPE_INFO,
         ],
     ]); ?>
 <?php Pjax::end(); ?>

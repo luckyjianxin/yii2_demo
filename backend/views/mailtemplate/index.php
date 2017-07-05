@@ -63,11 +63,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'pjax' => true,
         'bordered' => true,
         'striped' => false,
-        'condensed' => false,
+        'condensed' => true,
         'responsive' => true,
         'hover' => true,
         'panel' => [
-            'type' => GridView::TYPE_PRIMARY
+            'type' => GridView::TYPE_INFO
         ],
     ]); ?>
 <?php Pjax::end(); ?>

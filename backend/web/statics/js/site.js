@@ -32,10 +32,16 @@ $(function () {
     });
 
 
-    $('.switch_ck').each(function(){
-        $(this).bootstrapSwitch();
+    $(".tooltips").on('click', function () {
+        
+        if (!$("#sidebar").hasClass('in')) {
+            $("#main-content").css('margin-left', '210px');
+            window.localStorage.setItem('cols', 0);
+        } else {
+            $("#main-content").css('margin-left', '0px');
+            window.localStorage.setItem('cols', 1);
+        }
     });
-
 
 });
 String.prototype.addQueryParams = function(params) {

@@ -4,6 +4,7 @@
 /* @var $content string */
 
 use backend\assets\AppAsset;
+use common\assets\BootboxAsset;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -13,6 +14,8 @@ use yii\helpers\Url;
 use izyue\admin\components\MenuHelper;
 
 AppAsset::register($this);
+BootboxAsset::register($this);
+BootboxAsset::overrideSystemConfirm();
 
 $menuRows = MenuHelper::getAssignedMenu(Yii::$app->user->id);
 
@@ -139,16 +142,16 @@ function initMenu($menuArray, $controllerName, $isSubUrl, $isShowIcon=false)
     <!--header start-->
     <header class="header white-bg">
         <div class="sidebar-toggle-box">
-            <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+            <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation" data-toggle="collapse" data-target=".nav-collapse"></div>
         </div>
         <!--logo start-->
-        <a href="<?=Url::home()?>" class="logo">IZ<span>YUE</span></a>
+        <a href="<?=Url::home()?>" class="logo">DM<span>SMS</span></a>
         <!--logo end-->
         <div class="nav notify-row" id="top_menu">
             <!--  notification start -->
             <ul class="nav top-menu">
                 <!-- settings start -->
-                <li class="dropdown">
+                <!-- <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <i class="fa fa-tasks"></i>
                         <span class="badge bg-success">6</span>
@@ -228,10 +231,10 @@ function initMenu($menuArray, $controllerName, $isSubUrl, $isShowIcon=false)
                             <a href="#">See All Tasks</a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
                 <!-- settings end -->
                 <!-- inbox dropdown start-->
-                <li id="header_inbox_bar" class="dropdown">
+                <!-- <li id="header_inbox_bar" class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <i class="fa fa-envelope-o"></i>
                         <span class="badge bg-important">5</span>
@@ -293,10 +296,10 @@ function initMenu($menuArray, $controllerName, $isSubUrl, $isShowIcon=false)
                             <a href="#">See all messages</a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
                 <!-- inbox dropdown end -->
                 <!-- notification dropdown start-->
-                <li id="header_notification_bar" class="dropdown">
+                <!-- <li id="header_notification_bar" class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 
                         <i class="fa fa-bell-o"></i>
@@ -346,7 +349,7 @@ function initMenu($menuArray, $controllerName, $isSubUrl, $isShowIcon=false)
                             <a href="#">See all notifications</a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
                 <!-- notification dropdown end -->
             </ul>
             <!--  notification end -->
@@ -354,9 +357,9 @@ function initMenu($menuArray, $controllerName, $isSubUrl, $isShowIcon=false)
         <div class="top-nav ">
             <!--search & user info start-->
             <ul class="nav pull-right top-menu">
-                <li>
+                <!-- <li>
                     <input type="text" class="form-control search" placeholder="Search">
-                </li>
+                </li> -->
                 <!-- user login dropdown start-->
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -366,15 +369,15 @@ function initMenu($menuArray, $controllerName, $isSubUrl, $isShowIcon=false)
                     </a>
                     <ul class="dropdown-menu extended logout">
                         <div class="log-arrow-up"></div>
-                        <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
+                        <!-- <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
                         <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                        <li><a href="#"><i class="fa fa-bell-o"></i> Notification</a></li>
+                        <li><a href="#"><i class="fa fa-bell-o"></i> Notification</a></li> -->
                         <li><a href="<?=Url::toRoute('/site/logout')?>" data-method="post"><i class="fa fa-key"></i> Log Out</a></li>
                     </ul>
                 </li>
-                <li class="sb-toggle-right">
+                <!-- <li class="sb-toggle-right">
                     <i class="fa  fa-align-right"></i>
-                </li>
+                </li> -->
                 <!-- user login dropdown end -->
             </ul>
             <!--search & user info end-->
@@ -383,7 +386,7 @@ function initMenu($menuArray, $controllerName, $isSubUrl, $isShowIcon=false)
     <!--header end-->
     <!--sidebar start-->
     <aside>
-        <div id="sidebar"  class="nav-collapse ">
+        <div id="sidebar" class="nav-collapse collapse in" >
             <!-- sidebar menu start-->
             <ul class="sidebar-menu" id="nav-accordion">
                 <li>
@@ -416,6 +419,7 @@ function initMenu($menuArray, $controllerName, $isSubUrl, $isShowIcon=false)
             </ul>
             <!-- sidebar menu end-->
         </div>
+        
     </aside>
     <!--sidebar end-->
     <!--main content start-->
@@ -425,10 +429,11 @@ function initMenu($menuArray, $controllerName, $isSubUrl, $isShowIcon=false)
             <?=$content?>
         </div>
     </section>
+
     <!--main content end-->
 
     <!-- Right Slidebar start -->
-    <div class="sb-slidebar sb-right sb-style-overlay">
+    <!-- <div class="sb-slidebar sb-right sb-style-overlay">
         <h5 class="side-title">Online Customers</h5>
         <ul class="quick-chat-list">
             <li class="online">
@@ -440,7 +445,7 @@ function initMenu($menuArray, $controllerName, $isSubUrl, $isShowIcon=false)
                         <strong>John Doe</strong>
                         <small>Dream Land, AU</small>
                     </div>
-                </div><!-- media -->
+                </div>
             </li>
             <li class="online">
                 <div class="media">
@@ -454,7 +459,7 @@ function initMenu($menuArray, $controllerName, $isSubUrl, $isShowIcon=false)
                         <strong>Jonathan Smith</strong>
                         <small>United States</small>
                     </div>
-                </div><!-- media -->
+                </div>
             </li>
 
             <li class="online">
@@ -469,7 +474,7 @@ function initMenu($menuArray, $controllerName, $isSubUrl, $isShowIcon=false)
                         <strong>Jane Doe</strong>
                         <small>ABC, USA</small>
                     </div>
-                </div><!-- media -->
+                </div>
             </li>
             <li class="online">
                 <div class="media">
@@ -480,7 +485,7 @@ function initMenu($menuArray, $controllerName, $isSubUrl, $isShowIcon=false)
                         <strong>Anjelina Joli</strong>
                         <small>Fockland, UK</small>
                     </div>
-                </div><!-- media -->
+                </div>
             </li>
             <li class="online">
                 <div class="media">
@@ -494,7 +499,7 @@ function initMenu($menuArray, $controllerName, $isSubUrl, $isShowIcon=false)
                         <strong>Mr Tasi</strong>
                         <small>Dream Land, USA</small>
                     </div>
-                </div><!-- media -->
+                </div>
             </li>
         </ul>
         <h5 class="side-title"> pending Task</h5>
@@ -569,13 +574,13 @@ function initMenu($menuArray, $controllerName, $isSubUrl, $isShowIcon=false)
                 <a href="#">See All Tasks</a>
             </li>
         </ul>
-    </div>
+    </div> -->
     <!-- Right Slidebar end -->
 
     <!--footer start-->
     <footer class="site-footer">
         <div class="text-center">
-            2013 &copy; FlatLab by VectorLab.
+             &copy; Dreamlife Australia. All Rights Reserved <?php echo date('Y'); ?>
             <a href="#" class="go-top">
                 <i class="fa fa-angle-up"></i>
             </a>

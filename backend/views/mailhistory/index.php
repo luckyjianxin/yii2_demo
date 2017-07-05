@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
-use backend\helpers\MyUtils;
+use common\helpers\MyUtils;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\MailhistorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -104,13 +104,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]
                     ],
                     'pjax' => true,
+                    'pjaxSettings' => [
+                        'options' => [
+                            'id' => 'mail_history'
+                        ]
+                    ],
                     'bordered' => true,
                     'striped' => false,
                     'condensed' => false,
                     'responsive' => true,
                     'hover' => true,
                     'panel' => [
-                        'type' => GridView::TYPE_PRIMARY,
+                        'type' => GridView::TYPE_INFO,
                         'heading'=> '',
                     ],
                 ]); ?>

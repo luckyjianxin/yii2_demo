@@ -42,7 +42,13 @@ class User extends ActiveRecord implements IdentityInterface
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+            'timestamp' => [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'updated_at',
+                ],
+            ],
         ];
     }
 
@@ -192,5 +198,12 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $status_array = ['' => '请选择', self::STATUS_ACTIVE=>'正常', self::STATUS_DELETED=>'禁止'];
         return ($status == '-1') ? $status_array : ArrayHelper::getValue($status_array, $status, '未知');
+    }
+
+    public static function getUserType($type = null)
+    {
+
+        $type_array = ['Admin' => 'Administrator', 'Manager Assistant' => 'Manager Assistant', 'Manager' => 'Manager', 'Customer Service' => 'Customer Service', 'Freelance' => 'Freelance', 'Client' => 'Client'];
+        return (!isset($type)) ? $type_array : ArrayHelper::getValue($type_array, $type);
     }
 }

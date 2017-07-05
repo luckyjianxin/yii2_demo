@@ -72,10 +72,10 @@ $this->beginPage();
                             <li class="dropdown dropdown-user dropdown-dark">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <img alt="" class="img-circle" src="<?=Yii::getAlias('@web/images/avatar2.jpg')?>">
-                                    <span class="username username-hide-mobile">Admin</span>
+                                    <span class="username username-hide-mobile"><?=Yii::$app->user->identity->username?></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-default">
-                                    <li><a href="javascript:;"><i class="icon-user"></i> 个人资料 </a></li>
+                                    <li><a href="javascript:;"><i class="icon-user"></i><?=Yii::$app->user->identity->type?> </a></li>
                                     <!-- <li><a href="#"><i class="icon-calendar"></i> 我的日历 </a></li>
                                     <li>
                                         <a href="#">

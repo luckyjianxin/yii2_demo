@@ -49,4 +49,19 @@ class Officecontact extends \yii\db\ActiveRecord
             'lon' => 'Lon',
         ];
     }
+
+    public static function getLongNameByShort($bra) {
+        $branchs = [
+            'AKL' => 'Auckland',
+            'BNE' => 'Brisbane',
+            'MEL' => 'Melbourne',
+            'NYC' => 'NewYork',
+            'ONT' => 'OnThree',
+            'PHE' => 'Phenomena',
+            'SYD' => 'Sydney',
+            'XTRAO' => 'Xtraordinary'
+        ];
+
+        return $branchs[$bra];
+    }
 }

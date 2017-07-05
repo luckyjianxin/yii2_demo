@@ -26,6 +26,7 @@ class UserController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                    'reload' => ['POST'],
                 ],
             ],
         ];
@@ -117,8 +118,6 @@ class UserController extends Controller
 
         $uform = new UserUpdateForm($id);
 
-    
-        // print_r($form);
         // return;
 
         if ($uform->load(Yii::$app->request->post())) {
@@ -136,6 +135,8 @@ class UserController extends Controller
             
         } else {
             $uform->status = $model->status;
+            $uform->type = $model->type;
+
             return $this->render('update', [
                 'model' => $model,
                 'uform' => $uform
@@ -153,7 +154,17 @@ class UserController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        $searchModel = new UserSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        // print_r($dataProvider);
+        // print_r($searchModel);
+        // return false;
+
+        return $this->renderAjax('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
@@ -179,4 +190,39 @@ class UserController extends Controller
 
         return \yii\widgets\ActiveForm::validate($model);  
     }
+
+
+    public function actionReload()
+    {
+        //$this->findModel($id)->delete();
+
+        $sql = "select account, password, email, type from ns_v1user where ((type='freelance' and (pEnabled = 1 or vEnabled = 1)) or (type = 'Admin' or type = 'Manager' or type = 'Manager Assistant')) order by account asc";
+        $users = Yii::$app->db1->createCommand($sql)->queryAll();
+
+        foreach ($users as $key => $value) {
+            $model = new User(); 
+            $user = $model->findByUsername($value['account']);
+            if (!$user) {
+                $model->username = $value['account'];
+                $model->email = $value['email'];
+                $model->type = $value['type'];
+                $model->setPassword($value['password']);
+                $model->generateAuthKey();
+                $model->save();
+            } else {
+               $user->email = $value['email'];
+                $user->type = $value['type'];
+                $user->setPassword($value['password']);
+                $user->generateAuthKey();
+                $user->save(); 
+            }
+
+            
+        }
+
+         Yii::$app->session->setFlash('success', 'DMS用户更新成功');
+         return $this->redirect(['index']);
+
+    }
+
 }

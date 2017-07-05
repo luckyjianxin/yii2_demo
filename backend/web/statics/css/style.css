@@ -211,8 +211,8 @@ a, a:hover, a:focus {
 }
 /*---*/
 
-.nav-collapse.collapse {
-    display: inline;
+.nav-collapse .collapse {
+    /* display: inline; */
 }
 
 ul.sidebar-menu , ul.sidebar-menu li ul.sub{

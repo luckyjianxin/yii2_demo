@@ -42,6 +42,16 @@ $this->params['breadcrumbs'][] = $this->title;
                         'email:email',
                         ['width' => '120px',
                          'hAlign' => 'center',
+                         'attribute' => 'type',
+                         'format'=>'html',
+                         'filter' => Html::activeDropDownList($searchModel, 'type', User::getUserType(), ['class' => 'form-control', 'prompt' => '请选择']),
+                         'value' => function($model) {
+                            // return $model->type;
+                            return User::getUserType($model->type);
+                         },
+                        ],
+                        ['width' => '120px',
+                         'hAlign' => 'center',
                          'attribute' => 'status',
                          'format'=>'html',
                          'filter' => Html::activeDropDownList($searchModel, 'status', User::getUserStatus(), ['class' => 'form-control']),
@@ -71,16 +81,23 @@ $this->params['breadcrumbs'][] = $this->title;
                          //    return date("Y-m-d H:i:s", $model->created_at);
                          // },
                          'width' => '210px',
+                         'hAlign' => 'center',
+
                          // 'mergeHeader' => true,
                         ],
                         // 'updated_at',
 
                         ['class' => 'kartik\grid\ActionColumn',
+                         'template' => '{view} {update} {delete}',
+                         'width' => '120px',
+                         'viewOptions'=>['label' => '<span class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-eye-open"></i></span>'],
+                         'updateOptions'=>['label' => '<span class="btn btn-success btn-xs"><i class="glyphicon glyphicon-pencil"></i></span>'],
+                         'deleteOptions'=>['label' => '<span class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i></span>'], 
                          'header' => '',
                         ],
                     ],
                     'toolbar' =>  [
-                        ['content'=>''
+                        ['content' => ''
                         ]
                     ],
                     'pjax' => true,
@@ -97,6 +114,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'panel' => [
                         'heading'=>'',
                         'type' => GridView::TYPE_INFO,
+                        'before'=>Html::a('<i class="glyphicon glyphicon-repeat"></i> Reload User', ['reload'], ['class' => 'btn btn-success','data' => ['method' => 'post']]),
                     ],
                 ]); ?>
             <?php Pjax::end(); ?>
